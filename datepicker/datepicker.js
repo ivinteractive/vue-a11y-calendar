@@ -97,10 +97,10 @@ export default {
       const { calendar: cal } = this.$children[0].$refs;
 
       if (target.classList.contains('calendar__link') && e.shiftKey === true) {
-        const cancel = this.$el.querySelector('.datepicker__cancel');
+        const cancel = this.$refs.cancel;
         e.preventDefault();
         cancel.focus();
-      } else if (target.classList.contains('datepicker__cancel') && e.shiftKey === false) {
+      } else if (target.classList.contains('cancel') && e.shiftKey === false) {
         const item = cal.find(elem => elem.getAttribute('tabindex') === '0');
         e.preventDefault();
         item.focus();
