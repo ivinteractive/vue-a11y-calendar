@@ -166,8 +166,11 @@ export default {
       date.setMonth(this.value.month);
       date.setDate(this.value.day)
 
-      return date.getFullYear()+'-'+str_pad(date.getMonth()+1)+'-'+str_pad(date.getDate());
+      return date.getFullYear()+'-'+this.strpad(date.getMonth()+1)+'-'+this.strpad(date.getDate());
     },
+    strpad(value) {
+      return String('00' + number).slice(-2);
+    }
   },
   data() {
       return {
