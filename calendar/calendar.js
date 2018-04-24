@@ -59,6 +59,14 @@ export default {
     },
   },
   computed: {
+    value() {
+        let value = this.$parent.val;
+
+        for(let key in value)
+          value[key] = parseInt(value[key]);
+
+        return value;
+    },
     months() {
       return months.map((month) => {
         const thisMonth = new Date(Date.parse(`${month} 1, 2017`));
@@ -119,7 +127,9 @@ export default {
       current.parsed = new Date(Date.parse(`${months[current.month]} 1, ${current.year}`));
       current.start = new Date(Date.parse(current.parsed)).getDay();
       current.end = new Date(Date.parse(`${months[current.month]} ${current.days}, ${current.year}`)).getDay();
-      current.string = current.parsed.toLocaleDateString(this.locale, { month: 'long', year: 'numeric' });
+
+      const monthString = months[current.parsed.getMonth()];
+      current.string = monthString+' '+current.parsed.getFullYear();
 
       const next = {
         month: current.month + 1 > 11 ? 0 : current.month + 1,
@@ -163,7 +173,7 @@ export default {
             year: previous.year,
             day,
             dayString,
-            string: this.getLocaleDate(day, previous.month, previous.year),
+            string: this.dateString(day, previous.month, previous.year),
             status: 'disabled',
             focusable: false,
           });
@@ -171,7 +181,7 @@ export default {
           const day = (7 - leading) - (6 - i);
           const isToday = this.isToday({ day, month: current.month, year: current.year });
           const focusable = this.isFocusable({ day, month: current.month, year: current.year });
-          const dateString = this.getLocaleDate(day, current.month, current.year);
+          const dateString = this.dateString(day, current.month, current.year);
           const dayString = day.toLocaleString(this.locale);
 
           days[0].push({
@@ -195,7 +205,7 @@ export default {
         const day = i + offset;
         const isToday = this.isToday({ day, month: current.month, year: current.year });
         const focusable = this.isFocusable({ day, month: current.month, year: current.year });
-        const dateString = this.getLocaleDate(day, current.month, current.year);
+        const dateString = this.dateString(day, current.month, current.year);
         const dayString = day.toLocaleString(this.locale);
 
         days[week].push({
@@ -221,7 +231,7 @@ export default {
           year: next.year,
           day: i,
           dayString,
-          string: this.getLocaleDate(i, next.month, next.year),
+          string: this.dateString(i, next.month, next.year),
           status: 'disabled',
           focusable: false,
         });
@@ -246,36 +256,50 @@ export default {
       return output;
     },
     setFocus(last, offset) {
-      const items = Array.from(this.$refs.calendar);
+      var items = Array.from(this.$refs.calendar);
       if (last) {
-        items.find(elem => elem.parentNode.classList.contains('calendar__day')).setAttribute('tabindex', -1);
+        items.find(function (elem) {
+          return elem.parentNode.tagName==='TD';
+        }).setAttribute('tabindex', -1);
         items.reverse();
       }
-      const itemIndex = items.findIndex(elem => elem.parentNode.classList.contains('calendar__day'));
-      let item = items[itemIndex];
+      var itemIndex = items.findIndex(function (elem) {
+        return elem.parentNode.tagName==='TD';
+      });
+      var item = items[itemIndex];
 
-      if (offset) {
+      if (offset)
         item = items[itemIndex + offset];
-      }
 
       item.focus();
       item.setAttribute('tabindex', 0);
       return item;
     },
     select(e) {
-      let { target } = e;
-
-      e.preventDefault();
-
-      if (target.classList.contains('calendar__date')) {
-        target = target.parentNode;
-      }
+      let target = e.currentTarget;
       // Firefox/Safari need to be coerced into focusing the target element.
       target.focus();
       // https://sebastiandedeyne.com/posts/2017/using-registered-event-listeners-as-conditionals-in-vue
       this.$emit('dateSelected', target);
+    },
+    dateString(day, month, year) {
+      let date = new Date();
+      date.setFullYear(year);
+      date.setMonth(month);
+      date.setDate(day);
 
-      e.preventDefault();
+      return date.toLocaleDateString(this.locale, {
+        weekday: 'long',
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric',
+      });
+    },
+    isSelected(day) {
+      if(day.day===this.value.day && day.month===this.value.month && day.year===this.value.year)
+        return true;
+
+      return false;
     },
     isFocusable(current) {
       const { today } = this;
@@ -360,20 +384,18 @@ export default {
     isToday(current) {
       return current.day === this.today.day && current.month === this.today.month && current.year === this.today.year;
     },
-    navigate(dir, e) {
-      e.preventDefault();
+    navigate(dir) {
+        var move = {};
+        if (dir === 'next') {
+          move.month = this.current.month + 1 > 11 ? 0 : this.current.month + 1;
+          move.year = this.current.month + 1 > 11 ? this.current.year + 1 : this.current.year;
+        } else if (dir === 'prev') {
+          move.month = this.current.month - 1 < 0 ? 11 : this.current.month - 1;
+          move.year = this.current.month - 1 < 0 ? this.current.year - 1 : this.current.year;
+        }
 
-      const move = {};
-      if (dir === 'next') {
-        move.month = this.current.month + 1 > 11 ? 0 : this.current.month + 1;
-        move.year = this.current.month + 1 > 11 ? this.current.year + 1 : this.current.year;
-      } else if (dir === 'prev') {
-        move.month = this.current.month - 1 < 0 ? 11 : this.current.month - 1;
-        move.year = this.current.month - 1 < 0 ? this.current.year - 1 : this.current.year;
-      }
-
-      this.setCurrent(move.month, move.year);
-      return move;
+        this.setCurrent(move.month, move.year);
+        return move;
     },
     getCurrent() {
       const current = {};
