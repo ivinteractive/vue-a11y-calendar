@@ -62,7 +62,7 @@ export default {
         return true;
       },
     },
-    value: {
+    'data-value': {
       type: Object,
       default() {
         return {
@@ -71,6 +71,9 @@ export default {
           day: '',
         };
       },
+    },
+    name: {
+      type: String,
     },
   },
   methods: {
@@ -103,29 +106,40 @@ export default {
         item.focus();
       }
     },
-    cancel(e) {
-      this.$el.querySelector('.datepicker__activate').focus();
-      this.$el.querySelector('.datepicker__popup').setAttribute('data-state', 'closed');
-
-      e.preventDefault();
+    cancel() {
+      this.$refs.openButton.focus();
+      this.$refs.popup.setAttribute('data-state', 'closed');
     },
     select(target) {
-      this.$el.querySelector('.datepicker__popup').setAttribute('data-state', 'closed');
-      this.$el.querySelector('.datepicker__input').focus();
+      this.$refs.popup.setAttribute('data-state', 'closed');
+      this.$refs.input.focus();
 
-      this.value.year = target.dataset.year;
-      this.value.month = target.dataset.month;
-      this.value.day = target.dataset.day;
+      this.value = {
+        year: target.dataset.year,
+        month: target.dataset.month,
+        day: target.dataset.day
+      };
 
       this.$emit('dateSelected', target);
       this.$emit('input', this.value);
     },
+    setValue(e) {
+      const date = new Date(e.currentTarget.value);
+
+      this.value = {
+        year: date.getFullYear(),
+        month: date.getMonth(),
+        day: date.getDate()
+      };
+
+      let calendar = this.$refs.calendar;
+      calendar.setCurrent(this.value.month, this.value.year);
+    },
   },
   computed: {
     selectedLocal() {
-      if (this.value.year === '' || this.value.month === '' || this.value.day === '') {
+      if (isNaN(this.value.year) || isNaN(this.value.month) || isNaN(this.value.day))
         return '';
-      }
 
       const date = new Date();
       date.setFullYear(this.value.year);
@@ -143,9 +157,21 @@ export default {
     selectedDay() {
       return this.value.day;
     },
+    formattedValue() {
+      if (isNaN(this.value.year) || isNaN(this.value.month) || isNaN(this.value.day))
+        return '';
+
+      const date = new Date();
+      date.setFullYear(this.value.year);
+      date.setMonth(this.value.month);
+      date.setDate(this.value.day)
+
+      return date.getFullYear()+'-'+str_pad(date.getMonth()+1)+'-'+str_pad(date.getDate());
+    },
   },
   data() {
-    return {
-    };
+      return {
+        value: this.dataValue
+      }
   },
 };

@@ -14,31 +14,6 @@ $size: 2.5em !default;
     box-sizing: border-box;
   }
 
-  *:focus { // sass-lint:disable-line no-universal-selectors
-    outline: $outline-size dotted $outline-color;
-    outline-offset: $outline-size;
-  }
-
-  &__wrapper {
-    align-items: center;
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  &__activate {
-    height: 1em;
-    margin-left: .5em;
-
-    &:hover {
-      cursor: pointer;
-    }
-  }
-
-  &__label {
-    flex-basis: 100%;
-  }
-
-
   &__popup {
     display: none;
     left: 0;
@@ -57,51 +32,10 @@ $size: 2.5em !default;
 
   &__cancel {
     background: $white;
-    border: $border;
-    border-radius: 50%;
-    color: transparent;
-    height: $size;
-    overflow: hidden;
-    position: absolute;
-    right: 0;
-    top: 0;
-    transform: translateY(-1em) translateX(1em);
-    width: $size;
 
     &:hover {
       cursor: pointer;
     }
-
-    &::before {
-      color: $black;
-      content: 'x';
-      display: block;
-      font-size: $size - 1em;
-      font-weight: bold;
-      speak: none;
-
-      &:hover {
-        cursor: pointer;
-      }
-    }
   }
-
-  .calendar__body {
-    grid-auto-rows: 2.25em;
-  }
-
-  .calendar__head {
-    border: {
-      left: $border;
-      right: $border;
-    }
-  }
-
-  .calendar__header {
-    border: {
-      left: $border;
-      right: $border;
-      top: $border;
-    }
-  }
+  
 }

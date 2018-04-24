@@ -1,12 +1,6 @@
 $black: #000 !default;
-$blue: #00f !default;
-$yellow: #ff0 !default;
-$red: #f00 !default;
-$gray: #888 !default;
 $white: #fff !default;
 $half-pixel: (.5px / 16px) * 1em !default;
-$outline-size: 2px !default;
-$outline-color: #757575 !default;
 
 @mixin arrow($dir) {
   $arrow: '<';
@@ -26,8 +20,6 @@ $outline-color: #757575 !default;
 
 .calendar {
   box-sizing: border-box;
-  display: flex;
-  flex-wrap: wrap;
 
   button {
     background: none;
@@ -35,24 +27,10 @@ $outline-color: #757575 !default;
     font-size: 1em;
   }
 
-  * { // sass-lint:disable-line no-universal-selectors
-    box-sizing: border-box;
-  }
-
-  *:focus { // sass-lint:disable-line no-universal-selectors
-    outline: $outline-size dotted $outline-color;
-    outline-offset: $outline-size;
-  }
-
   // Header
   &__header {
     align-items: center;
-    background: mix($white, $blue, 50%);
-    display: flex;
-    flex-shrink: 0;
     font-size: 1.5em;
-    justify-content: center;
-    order: -1;
     padding-bottom: .5em;
     padding-top: .5em;
     width: 100%;
@@ -70,8 +48,6 @@ $outline-color: #757575 !default;
 
   &__next,
   &__previous {
-    align-items: center;
-    display: flex;
     text-decoration: none;
 
     &:hover {
@@ -93,86 +69,5 @@ $outline-color: #757575 !default;
     &::after {
       @include arrow('left');
     }
-  }
-
-  &__month {
-    margin-left: .25em;
-    margin-right: .25em;
-  }
-
-  // Calendar
-  &__wrapper {
-    border-collapse: collapse;
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    grid-template-rows: 2em auto;
-    width: 100%;
-  }
-
-  &__head {
-    background: mix($white, $blue, 50%);
-    grid-column: span 7;
-    grid-row: span 1;
-  }
-
-  &__body {
-    border: $half-pixel * 2 solid $black;
-    display: grid;
-    grid-auto-rows: minmax(3em, 10vh);
-    grid-column: span 7;
-  }
-
-  &__weekdays {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-  }
-
-  &__weekday {
-    display: block;
-    grid-column: span 1;
-  }
-
-  &__week {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-  }
-
-  &__day {
-    border: .03125em solid $black;
-    grid-column: span 1;
-
-    &--disabled {
-      background: mix($white, $gray, 50%);
-      border: $half-pixel solid $black;
-    }
-
-    &--active {
-      background: mix($white, $yellow, 50%);
-      border: $half-pixel solid $black;
-    }
-  }
-
-  &__link {
-    align-items: flex-start;
-    color: $black;
-    display: flex;
-    height: 100%;
-    justify-content: flex-end;
-    padding: .25em .5em;
-    text-decoration: none;
-    width: 100%;
-
-    &:focus {
-      background-color: rgba($red, .5);
-    }
-
-    &:hover {
-      cursor: pointer;
-    }
-
-    // For cross-browser consistency disable the dotted-line that FireFox adds.
-    // &::-moz-focus-inner { border-style: none; }
-    // ... Left out because: Style linter doesn't like -moz- vender prefix
-    // ... and autoprefixer doesn't seem to recognize focus-inner yet.
   }
 }
