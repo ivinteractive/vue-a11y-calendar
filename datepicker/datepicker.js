@@ -135,6 +135,9 @@ export default {
       let calendar = this.$refs.calendar;
       calendar.setCurrent(this.value.month, this.value.year);
     },
+    strpad(number) {
+      return String('00' + number).slice(-2);
+    }
   },
   computed: {
     selectedLocal() {
@@ -167,9 +170,6 @@ export default {
       date.setDate(this.value.day)
 
       return date.getFullYear()+'-'+this.strpad(date.getMonth()+1)+'-'+this.strpad(date.getDate());
-    },
-    strpad(value) {
-      return String('00' + number).slice(-2);
     }
   },
   data() {
