@@ -60,7 +60,7 @@ export default {
   },
   computed: {
     value() {
-        let value = this.$parent.val;
+        let value = this.$parent.value;
 
         for(let key in value)
           value[key] = parseInt(value[key]);
@@ -158,9 +158,8 @@ export default {
       current.trailing = trailing - 1;
 
       // Set up days
-      for (let i = 0; i < weeks + 1; i += 1) {
+      for (let i = 0; i < weeks + 1; i += 1)
         days[i] = [];
-      }
 
       // Set up first week
       for (let i = 0; i < 7; i += 1) {

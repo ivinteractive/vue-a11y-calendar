@@ -70,4 +70,38 @@ $half-pixel: (.5px / 16px) * 1em !default;
       @include arrow('left');
     }
   }
+
+  .calendar-header {
+    font-size: 1.25em;
+    text-align: center;
+    position: relative;
+    width: 100%;
+    padding: 0.625em 0;
+    button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      &:before,
+      &:after {
+        font-size: 0.6875em;
+        opacity: 0.3125;
+        transition: opacity 0.15s;
+      }
+      &:hover,
+      &:focus,
+      &:active {
+        &:before,
+        &:after {
+          opacity: 1;
+        }
+      }
+      &.calendar__previous {
+        left: 0.25em;
+      }
+      &.calendar__next {
+        right: 0.25em;
+      }
+    }
+  }
+
 }
