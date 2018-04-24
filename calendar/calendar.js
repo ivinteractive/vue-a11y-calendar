@@ -244,6 +244,10 @@ export default {
       };
     },
   },
+  mounted() {
+    if(!(isNaN(this.value.year) || isNaN(this.value.month) || isNaN(this.value.day)))
+      this.setCurrent(this.value.month, this.value.year);
+  },
   methods: {
     t(value, props = {}) {
       let output = value;
