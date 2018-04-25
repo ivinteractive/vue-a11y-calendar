@@ -128,16 +128,22 @@ export default {
       this.$emit('input', this.value);
     },
     setValue(e) {
-      const date = new Date(e.currentTarget.value);
-
-      this.value = {
-        year: date.getFullYear(),
-        month: date.getMonth(),
-        day: date.getDate()
-      };
-
       let calendar = this.$refs.calendar;
-      calendar.setCurrent(this.value.month, this.value.year);
+
+      if(e.currentTarget.value) {
+        let date = new Date(e.currentTarget.value);
+
+        this.value = {
+          year: date.getFullYear(),
+          month: date.getMonth(),
+          day: date.getDate()
+        };
+        
+        calendar.setCurrent(this.value.month, this.value.year);
+      } else {
+        let now = new Date();
+        calendar.setCurrent(now.getMonth(), now.getFullYear());
+      }
     },
     strpad(number) {
       return String('00' + number).slice(-2);
