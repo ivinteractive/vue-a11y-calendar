@@ -106,9 +106,13 @@ export default {
         item.focus();
       }
     },
-    cancel() {
-      this.$refs.openButton.focus();
-      this.$refs.popup.setAttribute('data-state', 'closed');
+    cancel(e) {
+      let state = this.$refs.popup.getAttribute('data-state');
+      if(state && state==='open') {
+        e.preventDefault();
+        this.$refs.openButton.focus();
+        this.$refs.popup.setAttribute('data-state', 'closed');
+      }
     },
     select(target) {
       this.$refs.popup.setAttribute('data-state', 'closed');
@@ -141,7 +145,7 @@ export default {
   },
   computed: {
     selectedLocal() {
-      if (isNaN(this.value.year) || isNaN(this.value.month) || isNaN(this.value.day))
+      if (!this.value || isNaN(this.value.year) || isNaN(this.value.month) || isNaN(this.value.day))
         return '';
 
       const date = new Date();
@@ -151,17 +155,8 @@ export default {
 
       return date.toLocaleDateString(this.locale);
     },
-    selectedYear() {
-      return this.value.year;
-    },
-    selectedMonth() {
-      return this.value.month;
-    },
-    selectedDay() {
-      return this.value.day;
-    },
     formattedValue() {
-      if (isNaN(this.value.year) || isNaN(this.value.month) || isNaN(this.value.day))
+      if (!this.value || isNaN(this.value.year) || isNaN(this.value.month) || isNaN(this.value.day))
         return '';
 
       const date = new Date();
@@ -173,8 +168,13 @@ export default {
     }
   },
   data() {
+      let value = this.dataValue || {
+        year: '',
+        month: '',
+        day: ''
+      };
       return {
-        value: this.dataValue
+        value: value
       }
   },
 };
