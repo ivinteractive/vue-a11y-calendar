@@ -141,7 +141,7 @@ export default {
   },
   computed: {
     selectedLocal() {
-      if (isNaN(this.value.year) || isNaN(this.value.month) || isNaN(this.value.day))
+      if (!this.value || isNaN(this.value.year) || isNaN(this.value.month) || isNaN(this.value.day))
         return '';
 
       const date = new Date();
@@ -152,16 +152,16 @@ export default {
       return date.toLocaleDateString(this.locale);
     },
     selectedYear() {
-      return this.value.year;
+      return this.value ? this.value.year : null;
     },
     selectedMonth() {
-      return this.value.month;
+      return this.value ? this.value.month : null;
     },
     selectedDay() {
-      return this.value.day;
+      return this.value ? this.value.day : null;
     },
     formattedValue() {
-      if (isNaN(this.value.year) || isNaN(this.value.month) || isNaN(this.value.day))
+      if (!this.value || isNaN(this.value.year) || isNaN(this.value.month) || isNaN(this.value.day))
         return '';
 
       const date = new Date();
@@ -173,8 +173,13 @@ export default {
     }
   },
   data() {
+      let value = this.dataValue || {
+        year: '',
+        month: '',
+        day: ''
+      };
       return {
-        value: this.dataValue
+        value: value
       }
   },
 };
