@@ -106,9 +106,13 @@ export default {
         item.focus();
       }
     },
-    cancel() {
-      this.$refs.openButton.focus();
-      this.$refs.popup.setAttribute('data-state', 'closed');
+    cancel(e) {
+      let state = this.$refs.popup.getAttribute('data-state');
+      if(state && state==='open') {
+        e.preventDefault();
+        this.$refs.openButton.focus();
+        this.$refs.popup.setAttribute('data-state', 'closed');
+      }
     },
     select(target) {
       this.$refs.popup.setAttribute('data-state', 'closed');

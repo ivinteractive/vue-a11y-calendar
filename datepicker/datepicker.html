@@ -9,7 +9,7 @@
   </div>
 
   <div class="datepicker__popup" ref="popup" aria-label="Date Picker" role="application" @keydown.tab="tabcapture" @keydown.esc="cancel" tabindex="-1">
-    <button class="cancel" ref="cancel" @click.prevent="cancel">Close <i class="fa fa-close"></i></button>
+    <button class="cancel" ref="cancel" @click="cancel">Close <i class="fa fa-close"></i></button>
     <calendar @dateSelected="select" :locale="locale" :microcopy="microcopy" ref="calendar"></calendar>
   </div>
 </div>
