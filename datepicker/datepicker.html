@@ -6,9 +6,6 @@
       <i class="fa fa-calendar" ref="openButton" role="button" @click="open" @keydown.space="open" @keydown.enter="open" tabindex="0"></i>
       <input type="hidden" :name="name" :value="formattedValue" />
     </div>
-    <input type="hidden" :name="inputs.day" :value="selectedDay">
-    <input type="hidden" :name="inputs.month" :value="selectedMonth">
-    <input type="hidden" :name="inputs.year" :value="selectedYear">
   </div>
 
   <div class="datepicker__popup" ref="popup" aria-label="Date Picker" role="application" @keydown.tab="tabcapture" @keydown.esc="cancel" tabindex="-1">

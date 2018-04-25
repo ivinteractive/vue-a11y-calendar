@@ -151,15 +151,6 @@ export default {
 
       return date.toLocaleDateString(this.locale);
     },
-    selectedYear() {
-      return this.value ? this.value.year : null;
-    },
-    selectedMonth() {
-      return this.value ? this.value.month : null;
-    },
-    selectedDay() {
-      return this.value ? this.value.day : null;
-    },
     formattedValue() {
       if (!this.value || isNaN(this.value.year) || isNaN(this.value.month) || isNaN(this.value.day))
         return '';
