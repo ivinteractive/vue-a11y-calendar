@@ -6,15 +6,15 @@ export default {
     calendar,
   },
   props: {
-    locale: {
+    'locale': {
       type: String,
       default: 'en-US',
     },
-    label: {
+    'label': {
       type: String,
       default: 'Choose a date',
     },
-    inputs: {
+    'inputs': {
       type: Object,
       default() {
         return {
@@ -35,7 +35,7 @@ export default {
         return true;
       },
     },
-    microcopy: {
+    'microcopy': {
       type: Object,
       default() {
         return {
@@ -72,8 +72,16 @@ export default {
         };
       },
     },
-    name: {
+    'name': {
       type: String,
+    },
+    'icon-close': {
+      type: String,
+      default: 'fa fa-close',
+    },
+    'icon-calendar': {
+      type: String,
+      default: 'fa fa-calendar',
     },
   },
   methods: {

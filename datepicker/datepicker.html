@@ -3,13 +3,13 @@
     <label :for="inputs.local">{{ label }}</label>
     <div class="input-group">
       <input type="text" ref="input" :id="inputs.local" :value="selectedLocal" @blur="setValue" />
-      <i class="fa fa-calendar" ref="openButton" role="button" @click="open" @keydown.space="open" @keydown.enter="open" tabindex="0"></i>
+      <i :class="iconCalendar" ref="openButton" role="button" @click="open" @keydown.space="open" @keydown.enter="open" tabindex="0"></i>
       <input type="hidden" :name="name" :value="formattedValue" />
     </div>
   </div>
 
   <div class="datepicker__popup" ref="popup" aria-label="Date Picker" role="application" @keydown.tab="tabcapture" @keydown.esc="cancel" tabindex="-1">
-    <button class="cancel" ref="cancel" @click="cancel">Close <i class="fa fa-close"></i></button>
+    <button class="cancel" ref="cancel" @click="cancel">Close <i :class="iconClose"></i></button>
     <calendar @dateSelected="select" :locale="locale" :microcopy="microcopy" ref="calendar"></calendar>
   </div>
 </div>
