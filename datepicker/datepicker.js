@@ -133,7 +133,10 @@ export default {
       };
 
       this.$emit('dateSelected', target);
-      this.$emit('input', this.value);
+      this.$emit('input', {
+        value: this.value,
+        formatted: this.formattedValue
+      });
     },
     setValue(e) {
       let calendar = this.$refs.calendar;
@@ -152,6 +155,10 @@ export default {
         let now = new Date();
         calendar.setCurrent(now.getMonth(), now.getFullYear());
       }
+      this.$emit('input', {
+        value: this.value,
+        formatted: this.formattedValue
+      });
     },
     strpad(number) {
       return String('00' + number).slice(-2);
