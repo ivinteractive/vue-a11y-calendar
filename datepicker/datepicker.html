@@ -1,6 +1,6 @@
 <div class="datepicker">
   <div class="datepicker__wrapper">
-    <label :for="inputs.local">{{ label }}</label>
+    <label :for="inputs.local" v-html="label"></label>
     <div class="input-group">
       <input type="text" ref="input" :id="inputs.local" :value="selectedLocal" @blur="setValue" />
       <i :class="iconCalendar" ref="openButton" role="button" @click="open" @keydown.space="open" @keydown.enter="open" tabindex="0"></i>
