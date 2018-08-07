@@ -57,6 +57,12 @@ export default {
         return true;
       },
     },
+    dataCurrent: {
+      type: Date,
+      default() {
+        return Date.now();
+      }
+    },
   },
   computed: {
     value() {
@@ -112,13 +118,12 @@ export default {
       return output;
     },
     today() {
-      const now = new Date(Date.now());
-
-      return {
-        month: now.getMonth(),
-        day: now.getDate(),
-        year: now.getFullYear(),
-      };
+        const now = new Date(Date.now());
+        return {
+          month: now.getMonth(),
+          day: now.getDate(),
+          year: now.getFullYear(),
+        };
     },
     calendar() {
       // Set up current, previous, and next months
@@ -402,7 +407,7 @@ export default {
     },
     getCurrent() {
       const current = {};
-      const now = new Date(Date.now());
+      const now = this.dataCurrent;
 
       current.month = now.getMonth();
       current.year = now.getFullYear();
