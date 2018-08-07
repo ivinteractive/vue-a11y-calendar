@@ -72,6 +72,12 @@ export default {
         };
       },
     },
+    'default-date': {
+      type: Date,
+      default() {
+        return new Date(Date.now());
+      },
+    },
     'name': {
       type: String,
     },
