@@ -3,11 +3,11 @@
   <!-- Calendar Header -->
   <div class="calendar-header">
     <!-- Previous Month -->
-    <button class="calendar__previous" :title="t(microcopy.previous)" @click.prevent="navigate('prev')" :aria-controls="tableID">
+    <button type="button" class="calendar__previous" :title="t(microcopy.previous)" @click.prevent="navigate('prev')" :aria-controls="tableID">
       <span class="calendar__nav">{{ t(microcopy.previous) }}</span>
     </button>
     <!-- Next Month -->
-    <button class="calendar__next" :title="t(microcopy.next)" @click.prevent="navigate('next')" :aria-controls="tableID">
+    <button type="button" class="calendar__next" :title="t(microcopy.next)" @click.prevent="navigate('next')" :aria-controls="tableID">
       <span class="calendar__nav">{{ t(microcopy.next) }}</span>
     </button>
     <!-- Visual Calendar Month -->
@@ -28,7 +28,7 @@
       <tr v-for="(week, weekIndex) in calendar.days" :key="'week--' + weekIndex">
         <td v-for="day in week" :key="day.string">
           <!-- Make only "active" or "1" focusable -->
-          <button :class="(day.status || '') + (isSelected(day) ? ' selected' : '')" :tabindex="day.focusable ? 0 : -1" :data-day="day.day" :data-month="day.month" :data-year="day.year" :ref="'calendar'" :aria-label="day.string" @click.prevent="select" :aria-selected="isSelected(day) ? 'true' : 'false'">{{ day.dayString }}</button>
+          <button type="button" :class="(day.status || '') + (isSelected(day) ? ' selected' : '')" :tabindex="day.focusable ? 0 : -1" :data-day="day.day" :data-month="day.month" :data-year="day.year" :ref="'calendar'" :aria-label="day.string" @click.prevent="select" :aria-selected="isSelected(day) ? 'true' : 'false'">{{ day.dayString }}</button>
         </td>
       </tr>
     </tbody>
