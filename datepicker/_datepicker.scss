@@ -50,13 +50,14 @@ $size: 2.5em !default;
   .input-group {
     width: 100%;
     input {
-      width: calc(100% - 2em);
+      width: 100%;
       font-size: 1.125em;
     }
     i {
       font-size: 1.25em;
       right: 0;
-      padding: 0.3125em 0.4375em;
+      padding: 0.1875em 0.1875em 0.125em;
+      z-index: 2;
     }
     * {
       &:focus,
