@@ -175,7 +175,7 @@ export default {
       if (!this.value || isNaN(this.value.year) || isNaN(this.value.month) || isNaN(this.value.day))
         return '';
 
-      const date = new Date();
+      let date = new Date();
       date.setFullYear(this.value.year);
       date.setMonth(this.value.month);
       date.setDate(this.value.day);
@@ -186,7 +186,7 @@ export default {
       if (!this.value || isNaN(this.value.year) || isNaN(this.value.month) || isNaN(this.value.day))
         return '';
 
-      const date = new Date();
+      let date = new Date();
       date.setFullYear(this.value.year);
       date.setMonth(this.value.month);
       date.setDate(this.value.day)
