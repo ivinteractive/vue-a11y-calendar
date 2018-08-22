@@ -175,22 +175,14 @@ export default {
       if (!this.value || isNaN(this.value.year) || isNaN(this.value.month) || isNaN(this.value.day))
         return '';
 
-      const date = new Date();
-      date.setFullYear(this.value.year);
-      date.setMonth(this.value.month);
-      date.setDate(this.value.day);
-
+      const date = new Date(this.value.year+'-'+(this.value.month + 1)+'-'+this.value.day);
       return date.toLocaleDateString(this.locale);
     },
     formattedValue() {
       if (!this.value || isNaN(this.value.year) || isNaN(this.value.month) || isNaN(this.value.day))
         return '';
 
-      const date = new Date();
-      date.setFullYear(this.value.year);
-      date.setMonth(this.value.month);
-      date.setDate(this.value.day)
-
+      const date = new Date(this.value.year+'-'+(this.value.month + 1)+'-'+this.value.day);
       return date.getFullYear()+'-'+this.strpad(date.getMonth()+1)+'-'+this.strpad(date.getDate());
     }
   },
